@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/*
+ * Design direction "Sala de Corte" — see research/design.md.
+ * All contrast pairs verified >= WCAG AA (script in the final report).
+ * Light palette is defined on bare :root; dark only redefines tokens.
+ */
+@theme {
+  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.125rem;
+  --text-lg: 1.375rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.5rem;
+  --text-3xl: clamp(2.75rem, 5vw, 4rem);
+
+  --color-bg: #f5f6f8;
+  --color-elevated: #ffffff;
+  --color-ink: #14161a;
+  --color-muted: #5a616c;
+  --color-line: #d8dce3;
+  --color-accent: #0b6e4f;
+  --color-accent-hover: #095c42;
+  --color-accent-subtle: #e6f3ee;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --bg: #f5f6f8;
+    --elevated: #ffffff;
+    --ink: #14161a;
+    --muted: #5a616c;
+    --line: #d8dce3;
+    --accent: #0b6e4f;
+    --accent-hover: #095c42;
+    --accent-subtle: #e6f3ee;
+    --on-accent: #ffffff;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --bg: #0e1014;
+      --elevated: #181b21;
+      --ink: #e9ecf1;
+      --muted: #9aa1ad;
+      --line: #2a2f38;
+      --accent: #3cb88a;
+      --accent-hover: #4ec99a;
+      --accent-subtle: #143528;
+      --on-accent: #0e1014;
+    }
+  }
+
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    /* Anchor links land below nothing sticky, but keep breathing room. */
+    scroll-padding-block-start: 2rem;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  /* Focus must always be visible — Gate 5 (keyboard) depends on it. */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
