@@ -11,17 +11,20 @@ and fitness coaches use to run their coaching business.
 ## What he builds
 
 - **CorteFilme** — his own product: a web app that helps Brazilian window-film
-  installers waste less film per roll. Landing in Next.js; product is a Vue/Quasar
+  shops waste less film per roll. Landing in Next.js; product is a Vue/Quasar
   SPA on Hasura and PostgreSQL, with Node.js services, running in Docker on a VPS
   he operates. Case study: https://edsonboldrini.com.br/work/cortefilme
 - **Superset** (current employer) — fitness coaching software: clients, programming
   and payments. He is a Software Engineer there.
-- **Club Trip (Além)** — subscription travel product he built most of (Vue, Node,
+- **Club Trip (Além)** — subscription travel product he built most of (Vue, Node.js,
   AdonisJS, Hasura, PostgreSQL).
 - **Le Card** — mobile payments app built from scratch, paired with a Bluetooth
   card terminal (Xamarin, .NET Core).
-- Past work: w3.care (health-care software), Conceptho (news apps), Dersalis
-  (health and productivity smartband apps) — all as Full Stack Engineer.
+- Past work, most recent first: w3.care (health-care software, Full Stack Engineer —
+  mobile & frontend), Conceptho (news apps, Full Stack Engineer), Dersalis
+  (health and productivity smartband apps, Full Stack Engineer — managed the dev
+  team), Le Card (payments, Full Stack Engineer). No dates are published on the
+  site or this file.
 
 ## Open source
 

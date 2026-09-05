@@ -45,6 +45,7 @@ export interface OrganizationLd {
 
 export interface PersonLd {
   readonly "@context": "https://schema.org";
+  readonly "@id": string;
   readonly "@type": "Person";
   readonly name: string;
   readonly url: string;
@@ -67,7 +68,10 @@ export interface WebSiteLd {
 export interface ProfilePageLd {
   readonly "@context": "https://schema.org";
   readonly "@type": "ProfilePage";
-  readonly mainEntity: PersonLd;
+  /** Reference only — the Person node itself is emitted separately with the same @id. */
+  readonly mainEntity: {
+    readonly "@id": string;
+  };
 }
 
 export interface CreativeWorkLd {
@@ -120,6 +124,7 @@ export function personSchema(): PersonLd {
   const superset = findWork("superset");
   return {
     "@context": "https://schema.org",
+    "@id": `${site.origin}/#person`,
     "@type": "Person",
     name: site.name,
     url: `${site.origin}/`,
@@ -160,7 +165,7 @@ export function profilePageSchema(): ProfilePageLd {
   return {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    mainEntity: personSchema(),
+    mainEntity: { "@id": `${site.origin}/#person` },
   };
 }
 

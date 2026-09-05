@@ -70,9 +70,9 @@ export const selectedWork: readonly WorkItem[] = [
     slug: "club-trip",
     title: "Club Trip · Além",
     role: "Full Stack Engineer — built most of the product",
-    oneLine: "A subscription travel product at Além that I built most of, from API to screens.",
+    oneLine: "A subscription travel product at Além that I built most of.",
     meta: "Travel subscriptions",
-    stack: ["Vue", "Node", "AdonisJS", "Hasura", "PostgreSQL"],
+    stack: ["Vue", "Node.js", "AdonisJS", "Hasura", "PostgreSQL"],
     hasCaseStudy: false,
   },
   {
@@ -176,16 +176,16 @@ export interface CaseStudy {
 export const caseStudy: CaseStudy = {
   slug: "cortefilme",
   title: "CorteFilme",
-  summary: "A web app that helps Brazilian window-film installers turn each roll of film into more jobs and less waste.",
+  summary: "A web app that helps Brazilian window-film shops waste less film per roll.",
   href: site.profiles.cortefilme,
   sections: [
     {
       heading: "Context",
-      body: "CorteFilme serves shops in Brazil that cut and install solar window film (insulfilm) on cars and buildings. Film comes in rolls; every piece is cut by hand, and every cut makes the rest of the roll less usable. It's my product, start to finish — I created it and still own it.",
+      body: "CorteFilme is a web app for window-film shops in Brazil — shops that cut solar film (insulfilm) from rolls. Film comes in rolls of fixed size, and every cut shrinks the leftover toward waste. It's my product, start to finish: I created it and still own it.",
     },
     {
       heading: "Problem",
-      body: "Installers plan cuts by eye. Because a roll has fixed width and length, a sloppy layout leaves offcuts too small to reuse — and that waste comes straight out of margin. The core problem is layout: given the pieces a job needs, how do you cut them from a roll with the least leftover?",
+      body: "Because a roll has fixed width and length, a poor cutting layout leaves offcuts too small to reuse — and that waste comes straight out of the shop's margin. The core problem is layout: given the pieces a job needs, how do you cut them from a roll with the least leftover?",
     },
     {
       heading: "What I built",
@@ -193,7 +193,7 @@ export const caseStudy: CaseStudy = {
     },
     {
       heading: "Trade-offs",
-      body: "Web first, so no one has to install anything and it works from the shop computer: offline use is simply out. Running it alone, I keep scope tight — a feature ships only if it pulls its weight in maintenance. The free trial is the honest way to prove the cutting plan before asking for money: a bet on the problem being real, not on a sales funnel.",
+      body: "Web first — a hosted app, so shops can use it from any browser, nothing to install. Running it alone, I keep scope tight — a feature ships only if it pulls its weight in maintenance. The free 15-day trial is the honest way to prove the cutting plan before asking for money: a bet on the problem being real, not on a sales funnel.",
     },
     {
       heading: "Result",

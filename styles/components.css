@@ -27,6 +27,10 @@
 }
 
 .work-item-title {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 24px;
+  padding-block: 0.125rem;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
   text-decoration-color: transparent;

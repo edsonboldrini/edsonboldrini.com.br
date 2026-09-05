@@ -22,7 +22,7 @@ Cada afirmação publicada em `lib/content.ts` e sua fonte em `research/person.m
 | "deployed on AWS and GCP" | GitHub README bio (destaques AWS, GCP) |
 | "based in Vitória, Brazil" | C6.1 / C2 (GitHub API) |
 | Superset = "platform personal trainers and fitness coaches use to run their coaching business" | C6.3; linha 12 (descrição da empresa); linha 60 (OS para coaches — clientes, programação, pagamentos) |
-| CorteFilme = "web app that helps Brazilian window-film installers waste less film" | C6.4; linha 59 (site: otimizar corte de películas solares, menos desperdício) |
+| CorteFilme = "web app that helps Brazilian window-film shops waste less film per roll" | C6.4; linha 59 (site: otimizar corte de películas solares, menos desperdício). "installers"→"shops" e "more jobs" foram REMOVIDOS (revisão: "more jobs" sem fonte) |
 
 ## Selected Work
 
@@ -37,9 +37,9 @@ Cada afirmação publicada em `lib/content.ts` e sua fonte em `research/person.m
 | Superset oneLine (descrição do produto da empresa) | linha 60 (Crunchbase/Fitt) — fato da empresa, NÃO entrega reivindicada |
 | Superset stack: Python, TypeScript, React, Expo | linha 15 (stack citada da empresa — CTO LinkedIn) |
 | Superset href = supersetapp.com | linha 12 |
-| Club Trip/Além: "built most of the product" | C3 — "construiu a maior parte do produto de assinatura 'Club Trip'" |
+| Club Trip/Além: "built most of the product" | C3 — "construiu a maior parte do produto de assinatura 'Club Trip'". "from API to screens" REMOVIDO (revisão: C3 não sustenta o escopo) |
 | Club Trip meta: Travel subscriptions | C3 ("produto de assinatura") |
-| Além stack: Vue, Node, AdonisJS, Hasura, PostgreSQL | C3 (stack declarada da Além no `resume.json`) — **suposição**: stack da empresa, não per-feature |
+| Além stack: Vue, Node.js, AdonisJS, Hasura, PostgreSQL | C3 (stack declarada da Além no `resume.json`) — **suposição**: stack da empresa, não per-feature. "Node" padronizado em "Node.js" (não duplicar no knowsAbout do JSON-LD) |
 | Além href — REMOVIDO | alem.com.br sem registro A (verificado com dig/curl 2026-09-05) — sem link quebrado; item continua no site sem href |
 | Le Card: "built the payments app from scratch, Bluetooth terminal" | C3 — "construiu do zero o app mobile de pagamentos (terminal Bluetooth)" |
 | Le Card meta: Payments · mobile | C3 |
@@ -80,14 +80,21 @@ Cada afirmação publicada em `lib/content.ts` e sua fonte em `research/person.m
 
 | Afirmação do site | Fonte |
 |---|---|
-| Context: lojas brasileiras que cortam/instalam película solar; produto dele | linha 59; C6.4 |
-| Problem: corte manual à mão, desperdício de rolo | linha 59 (otimizar ao máximo o corte; menos desperdício) |
+| Context: web app p/ lojas brasileiras que cortam película solar (insulfilm) de rolos | linha 59; C6.4. "on cars and buildings" e "cut by hand" REMOVIDOS (revisão: sem fonte; não afirmar como o corte é feito hoje) |
+| Problem: desperdício de rolo (largura/comprimento fixos; sobras pequenas demais) | linha 59 (otimizar ao máximo o corte; menos desperdício). "plan cuts by eye" REMOVIDO (revisão: sem fonte) |
 | What I built: layout de corte, relatórios/gestão, trial 15 dias | linha 59 |
 | "landing page e produto no ar", sistema.cortefilme.com.br | linha 59 (site + plataforma) |
 | Landing em Next.js (estático); produto é SPA Vue/Quasar; Backend Hasura + PostgreSQL + serviços Node.js; Docker + nginx em VPS própria (migrado de AWS) | C8 — sem portas, container names ou caminhos de disco |
 | "I own it / creator" | C6.4 (registro.br) |
 | Result: sem receita/clientes publicados ("won't invent it") | ia.md trava — "Números de negócio do CorteFilme (clientes, receita) — não temos nenhum. Não inventar." |
 | Nenhuma métrica inventada em Trade-offs/What I learned | ia.md trava |
+| Trade-offs: "web first — hosted, nothing to install"; sem offline/shop computer | linha 59 (produto web). "offline use is simply out" e "works from the shop computer" REMOVIDOS (revisão: requisito de usuário inventado) |
+
+## JSON-LD (lib/schema.ts)
+
+| Afirmação do site | Fonte / motivo |
+|---|---|
+| Person recebe `@id` estável `${site.origin}/#person`; ProfilePage.mainEntity vira referência `{"@id": ...}` | Correção de revisão: a mesma entidade não pode aparecer duplicada no HTML; blocos mantidos (Person, WebSite, ProfilePage) |
 
 ## Suposições declaradas (Portão 7 — rastreáveis)
 

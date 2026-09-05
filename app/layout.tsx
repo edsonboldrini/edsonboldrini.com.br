@@ -25,6 +25,9 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400"],
   variable: "--font-plex-mono",
   display: "swap",
+  // Only used for small meta lines, never for the LCP element. Keeping it out
+  // of the preload set stops it competing with the body font during first paint.
+  preload: false,
 });
 
 export const metadata: Metadata = {

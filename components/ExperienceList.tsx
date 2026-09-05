@@ -23,7 +23,7 @@ export function ExperienceList({ items }: ExperienceListProps) {
     >
       {items.map((item) => (
         <li key={`${item.company}-${item.role}`}>
-          <p
+          <h3
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "var(--text-lg)",
@@ -35,7 +35,7 @@ export function ExperienceList({ items }: ExperienceListProps) {
             }}
           >
             {item.company}
-          </p>
+          </h3>
           <p
             style={{
               marginBlockStart: "var(--space-1, 0.25rem)",

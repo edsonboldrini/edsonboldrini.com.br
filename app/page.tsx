@@ -115,7 +115,7 @@ export default function HomePage() {
             label: "LinkedIn",
             external: true,
           },
-          { href: contact.profiles.x, label: "X", external: true },
+          { href: contact.profiles.x, label: "X (Twitter)", external: true },
           {
             href: contact.profiles.instagram,
             label: "Instagram",
