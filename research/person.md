@@ -178,3 +178,26 @@ máximo: cidade/estado (Vitória, ES, Brasil) e o email `edsonboldrini@gmail.com
 
 Idade · formação acadêmica · datas exatas de emprego · Pontal Store · autoria de plugins Flutter
 de terceiros · "Arctic Code Vault" (não se sabe qual repo) · qualquer número de seguidores.
+
+## C8. NOVO — stack real do CorteFilme (verificado no disco desta VPS)
+
+Inspecionei `/home/edson/Developer/cortefilme` (somente leitura) e a config do nginx. Fonte
+primária: o código em produção. **Prevalece sobre qualquer inferência de busca web.**
+
+| Camada | Stack real | Evidência |
+|---|---|---|
+| Landing `cortefilme.com.br` | **Next.js** (estático, exportado) | `site-landing/.../index.html` contém `_next` e `__NEXT_DATA__` |
+| Produto `sistema.cortefilme.com.br` | **Vue 2 + Quasar 1** (SPA) | `sistema/web/package.json`: `"quasar": "^1.0.0"`, `"vue": "^2.6.12"` |
+| API de dados | **Hasura** (GraphQL) | upstream nginx `hasura` → 127.0.0.1:8080 |
+| Banco | **PostgreSQL** (2 instâncias) | containers `sistema-postgres-1`, `sistema-postgres-prod-1` |
+| APIs de apoio | **Node.js** (`api-suporte`, `api-calculo`) | `api-calculo/package.json` + `functions.js`; upstreams :8081/:8082 |
+| Infra | **Docker Compose + nginx em VPS**, TLS Let's Encrypt | `docker ps`, `sistema/`, `cortefilme.service` |
+| Histórico | migrou de **AWS para VPS própria** | `aws-migration-inventory.md`, `aws-stepwise-migration-plan.md`, `aurora-decommission-2026-07-14.md` |
+
+⚠️ **CORREÇÃO:** dizer que o CorteFilme "é Next.js" está ERRADO. Só a **landing** é Next.js;
+o **produto** é Vue 2 + Quasar sobre Hasura/PostgreSQL. Publicar apenas "Next.js" como stack do
+CorteFilme induz a erro. Usar a stack completa acima.
+
+**Nota de escopo:** é o produto do próprio Edson, então descrever a arquitetura dele é legítimo.
+Não publicar portas internas, nomes de container, caminhos de disco nem detalhe operacional
+da VPS — só a stack em nível de tecnologia.

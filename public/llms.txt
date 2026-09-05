@@ -1,0 +1,44 @@
+# Edson Boldrini
+
+> Software engineer. I build products end to end — and I run one.
+> Vitória, Brazil · Currently at Superset · Creator of CorteFilme
+
+Edson Boldrini is a full-stack software engineer working across web and mobile —
+TypeScript first, then Node, Vue, React, Flutter, Go and Elixir. He is based in
+Vitória, Brazil, and works at Superset, the software platform personal trainers
+and fitness coaches use to run their coaching business.
+
+## What he builds
+
+- **CorteFilme** — his own product: a web app that helps Brazilian window-film
+  installers waste less film per roll. Landing in Next.js; product is a Vue/Quasar
+  SPA on Hasura and PostgreSQL, with Node.js services, running in Docker on a VPS
+  he operates. Case study: https://edsonboldrini.com.br/work/cortefilme
+- **Superset** (current employer) — fitness coaching software: clients, programming
+  and payments. He is a Software Engineer there.
+- **Club Trip (Além)** — subscription travel product he built most of (Vue, Node,
+  AdonisJS, Hasura, PostgreSQL).
+- **Le Card** — mobile payments app built from scratch, paired with a Bluetooth
+  card terminal (Xamarin, .NET Core).
+- Past work: w3.care (health-care software), Conceptho (news apps), Dersalis
+  (health and productivity smartband apps) — all as Full Stack Engineer.
+
+## Open source
+
+Small, honest experiments — integrations, not maintained libraries:
+
+- flutter_getnet_pos — Flutter plugin for Getnet POS terminals (Java, Flutter)
+- flutter_ycbtsdk — Objective-C wrapper around the YCB smartband SDK
+
+## Official links
+
+- Website: https://edsonboldrini.com.br
+- GitHub: https://github.com/edsonboldrini
+- LinkedIn: https://www.linkedin.com/in/edsonboldrini
+- X: https://x.com/edsonboldrini
+- Instagram: https://www.instagram.com/edsonboldrini
+- Email: edsonboldrini@gmail.com
+- CorteFilme: https://www.cortefilme.com.br
+
+Note: every fact in this file also lives on the site itself (HTML, JSON-LD).
+This file is a complement for machines, never the only source of a fact.

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
+import { SkipLink } from "@/components";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -63,6 +64,7 @@ export default function RootLayout({
       <body
         className={`${syne.variable} ${sourceSans.variable} ${plexMono.variable}`}
       >
+        <SkipLink />
         {children}
       </body>
     </html>

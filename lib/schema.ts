@@ -1,0 +1,190 @@
+/**
+ * Typed JSON-LD builders. Identity and URLs ALWAYS come from lib/site.ts and
+ * lib/content.ts — never hardcoded here. Only the schemas sanctioned by
+ * research/ia.md §JSON-LD: Person, WebSite, ProfilePage, CreativeWork.
+ * No SoftwareSourceCode, EducationalOccupationalCredential, Rating or Review.
+ */
+import { createElement } from "react";
+import type { ReactElement } from "react";
+
+import { site } from "@/lib/site";
+import {
+  caseStudy,
+  openSource,
+  selectedWork,
+  type WorkItem,
+} from "@/lib/content";
+
+/**
+ * Any of the concrete schema shapes below. A plain Record<string, unknown>
+ * would not accept them: interfaces have no implicit index signature, so
+ * passing PersonLd where a Record is expected is a type error.
+ */
+export type JsonLdData =
+  | PersonLd
+  | WebSiteLd
+  | ProfilePageLd
+  | CreativeWorkLd;
+
+/* ------------------------------------------------------------------ */
+/* Schema.org interfaces (owned here, mirrored in docs)                */
+/* ------------------------------------------------------------------ */
+
+export interface PostalAddressLd {
+  readonly "@type": "PostalAddress";
+  readonly addressLocality: string;
+  readonly addressRegion: string;
+  readonly addressCountry: string;
+}
+
+export interface OrganizationLd {
+  readonly "@type": "Organization";
+  readonly name: string;
+  readonly url: string;
+}
+
+export interface PersonLd {
+  readonly "@context": "https://schema.org";
+  readonly "@type": "Person";
+  readonly name: string;
+  readonly url: string;
+  readonly jobTitle: string;
+  readonly email: string;
+  readonly address: PostalAddressLd;
+  readonly knowsAbout: readonly string[];
+  readonly worksFor: OrganizationLd;
+  readonly sameAs: readonly string[];
+}
+
+export interface WebSiteLd {
+  readonly "@context": "https://schema.org";
+  readonly "@type": "WebSite";
+  readonly name: string;
+  readonly url: string;
+  readonly inLanguage: "en";
+}
+
+export interface ProfilePageLd {
+  readonly "@context": "https://schema.org";
+  readonly "@type": "ProfilePage";
+  readonly mainEntity: PersonLd;
+}
+
+export interface CreativeWorkLd {
+  readonly "@context": "https://schema.org";
+  readonly "@type": "CreativeWork";
+  readonly name: string;
+  readonly url: string;
+  readonly description: string;
+  readonly author: PersonLd;
+}
+
+/* ------------------------------------------------------------------ */
+/* Derived facts (all traceable to content.ts / site.ts)               */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Superset is the current employer — cargo e empresa saem de selectedWork.
+ * Throws at build time if the item or its href is ever removed: a JSON-LD
+ * worksFor with a dead URL is worse than no JSON-LD.
+ */
+function requireHref(item: WorkItem): string {
+  const href = item.href;
+  if (!href) {
+    throw new Error(`Missing href for "${item.slug}" in lib/content.ts`);
+  }
+  return href;
+}
+
+function findWork(slug: string): WorkItem {
+  const item = selectedWork.find((candidate) => candidate.slug === slug);
+  if (!item) {
+    throw new Error(`selectedWork has no item with slug "${slug}"`);
+  }
+  return item;
+}
+
+/** knowsAbout = union of every stack ever published on the site — no new facts. */
+const knowsAbout: readonly string[] = [
+  ...new Set([
+    ...selectedWork.flatMap((item) => item.stack),
+    ...openSource.flatMap((project) => project.stack),
+  ]),
+];
+
+/* ------------------------------------------------------------------ */
+/* Builders                                                            */
+/* ------------------------------------------------------------------ */
+
+export function personSchema(): PersonLd {
+  const superset = findWork("superset");
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: site.name,
+    url: `${site.origin}/`,
+    jobTitle: superset.role,
+    email: site.email,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: site.location.city,
+      addressRegion: site.location.region,
+      addressCountry: site.location.countryCode,
+    },
+    knowsAbout,
+    worksFor: {
+      "@type": "Organization",
+      name: superset.title,
+      url: requireHref(superset),
+    },
+    sameAs: [
+      site.profiles.github,
+      site.profiles.linkedin,
+      site.profiles.x,
+      site.profiles.instagram,
+    ],
+  };
+}
+
+export function websiteSchema(): WebSiteLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: site.title,
+    url: `${site.origin}/`,
+    inLanguage: "en",
+  };
+}
+
+export function profilePageSchema(): ProfilePageLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    mainEntity: personSchema(),
+  };
+}
+
+/** CreativeWork — CorteFilme é produto/SaaS, NÃO SoftwareSourceCode (ia.md). */
+export function creativeWorkSchema(): CreativeWorkLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: caseStudy.title,
+    url: caseStudy.href,
+    description: caseStudy.summary,
+    author: personSchema(),
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* JsonLd — render <script type="application/ld+json">.                */
+/* Purpose-built for injection from page files; pages are owned by     */
+/* the orchestrator, this component is the only touch point.           */
+/* ------------------------------------------------------------------ */
+
+export function JsonLd({ data }: { readonly data: JsonLdData }): ReactElement {
+  return createElement("script", {
+    type: "application/ld+json",
+    dangerouslySetInnerHTML: { __html: JSON.stringify(data) },
+  });
+}
