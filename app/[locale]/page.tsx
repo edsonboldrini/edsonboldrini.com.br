@@ -73,8 +73,6 @@ export default async function HomePage({
       <JsonLd data={websiteSchema(locale)} />
       <JsonLd data={profilePageSchema(locale)} />
 
-      <LocaleSwitcher current={locale} label={t.ui.languageLabel} />
-
       <Hero
         name={t.hero.name}
         headline={t.hero.headline}
@@ -135,7 +133,9 @@ export default async function HomePage({
           label: p.label,
           external: true,
         }))}
-      />
+      >
+        <LocaleSwitcher current={locale} label={t.ui.languageLabel} />
+      </Footer>
     </main>
   );
 }

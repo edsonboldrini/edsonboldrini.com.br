@@ -59,8 +59,6 @@ export default async function CorteFilmeCasePage({
     <main id="main-content" tabIndex={-1} style={mainStyle}>
       <JsonLd data={creativeWorkSchema(locale)} />
 
-      <LocaleSwitcher current={locale} path={PATH} label={t.ui.languageLabel} />
-
       <p style={{ marginBlockStart: "var(--space-6)", marginBlockEnd: 0 }}>
         <a
           href={localePath(locale)}
@@ -126,6 +124,14 @@ export default async function CorteFilmeCasePage({
           </Prose>
         </Section>
       ))}
+
+      <div className="page-end">
+        <LocaleSwitcher
+          current={locale}
+          path={PATH}
+          label={t.ui.languageLabel}
+        />
+      </div>
     </main>
   );
 }

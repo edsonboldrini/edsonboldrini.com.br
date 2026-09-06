@@ -73,40 +73,61 @@
 
 /* --- Language switcher --------------------------------------------- */
 
+/*
+ * Lives at the end of the page, not above the name. On a personal site the
+ * first thing in view should be who this is, not a settings control. Users
+ * look in the header first and the footer second, and on a page this short
+ * the footer is reached easily.
+ *
+ * Named in each language's own words, with no flags: a flag is a country,
+ * not a language. See research/language-switcher.md.
+ */
+.locale-switcher {
+  margin-block-start: var(--space-7, 3rem);
+}
+
 .locale-switcher ul {
   display: flex;
-  gap: var(--space-2, 0.5rem);
+  flex-wrap: wrap;
+  gap: var(--space-2, 0.5rem) var(--space-4, 1rem);
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.locale-switcher-link {
+.locale-switcher-link,
+.locale-switcher-current {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2, 0.5rem);
   /* WCAG 2.2 AA 2.5.8 — target at least 24px. */
   min-block-size: 24px;
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
-  border: 1px solid transparent;
-  border-radius: 2px;
-  color: var(--muted);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  transition: color 120ms ease, border-color 120ms ease;
+  letter-spacing: 0.02em;
+}
+
+.locale-switcher-link {
+  color: var(--muted);
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: color 120ms ease, text-decoration-color 120ms ease;
 }
 
 .locale-switcher-link:hover {
-  color: var(--ink);
-  border-color: var(--line);
+  color: var(--accent);
+  text-decoration-color: var(--accent);
 }
 
-.locale-switcher-link[aria-current="true"] {
+/* The language you are reading is stated, not offered. */
+.locale-switcher-current {
   color: var(--ink);
-  border-color: var(--line);
-  background: var(--elevated);
+}
+
+/* Trailing block on pages without a footer, e.g. the case study. */
+.page-end {
+  padding-block-end: var(--space-9, 6rem);
 }
 
 .sr-only {
@@ -127,46 +148,17 @@
   padding-block: var(--space-9, 6rem);
 }
 
-/*
- * The footer's rule was stranded: the last section added 6rem below its
- * content and the footer another 6rem above its heading, leaving a line
- * floating in 12rem of nothing. On a phone that reads as a divider with a
- * missing item under it. The last section now stops short so the rule sits
- * against the content it separates.
- *
- * Where :has() is unsupported this simply falls back to the old 6rem — the
- * layout degrades to what it is today, never to something broken.
- */
-.section:has(+ .site-footer) {
-  padding-block-end: var(--space-8, 4rem);
-}
 
 .site-footer {
-  position: relative;
-  /* Asymmetric on purpose: more room above the mark than below it, so the
-     mark reads as belonging to Contact rather than floating between the two.
-     Equal space on both sides is what made the old rule look orphaned. */
-  padding-block: var(--space-5, 1.5rem) var(--space-8, 4rem);
-}
-
-/*
- * End-of-content mark — deliberately a different SPECIES from the rules inside
- * a list, not a stronger version of one. The list separators run the full width
- * of the column, 1px, in --line: they mean "next row". This is short, heavier
- * and in the accent: it means "the content ends here".
- *
- * Measured on the minimalist portfolios this site takes after — paco.me,
- * leerob.com, brittanychiang.com, joshwcomeau.com — none draws a rule at this
- * boundary at all, and none of the seven checked contains a single <hr>; they
- * separate with whitespace and a quieter type. This keeps one deliberate mark
- * while dropping the full-width rule that was being confused with the lists.
- */
-.site-footer::before {
-  content: "";
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  inline-size: 2.5rem;
-  block-size: 2px;
-  background: var(--accent);
+  /*
+   * No rule and no mark: the boundary is whitespace alone, which is what every
+   * minimalist portfolio measured does here — joshwcomeau, paco, brittanychiang
+   * and leerob all render nothing at this edge, and none of the seven checked
+   * contains a single <hr>. See research/divider.md.
+   *
+   * 6rem here plus the previous section's 6rem is ~192px of air, which is the
+   * same gap joshwcomeau.com uses. That spacing was always right; the rule
+   * sitting in the middle of it was the problem.
+   */
+  padding-block: var(--space-9, 6rem) var(--space-8, 4rem);
 }

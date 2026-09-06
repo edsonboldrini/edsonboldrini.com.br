@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { ExternalLink } from "./ExternalLink";
 
 export interface FooterLink {
@@ -13,6 +13,8 @@ export interface FooterProps {
   email?: FooterLink;
   profiles: FooterLink[];
   note?: string;
+  /** Rendered last — the language switcher lives here, not in the hero. */
+  children?: ReactNode;
 }
 
 const linkStyle: CSSProperties = {
@@ -33,6 +35,7 @@ export function Footer({
   email,
   profiles,
   note,
+  children,
 }: FooterProps) {
   const headingId = id && heading ? `${id}-heading` : undefined;
 
@@ -96,6 +99,7 @@ export function Footer({
           {note}
         </p>
       ) : null}
+      {children}
     </footer>
   );
 }

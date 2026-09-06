@@ -1,4 +1,3 @@
-import { Flag } from "./Flag";
 import {
   localeMeta,
   localeSwitchPath,
@@ -15,13 +14,16 @@ export interface LocaleSwitcherProps {
 }
 
 /**
- * Plain <a> links, one per language, pointing at the same page in that
- * language. No JavaScript is involved in switching: the links work with JS
- * disabled and are crawlable, which is what lets hreflang mean anything.
+ * Plain <a> links, one per language. No JavaScript is involved in switching:
+ * they work with JS disabled and are crawlable, which is what lets hreflang
+ * mean anything. Every link is locale-bearing, English included — pointing
+ * English at the bare apex made it unreachable once another language was
+ * chosen (see localeSwitchPath).
  *
- * Every link is locale-bearing, English included — see localeSwitchPath.
- * Pointing English at the bare apex made English unreachable once another
- * language had been chosen.
+ * Each language is named in its own language, and there are no flags. A flag
+ * is a country, not a language: there is no correct flag for Spanish, and
+ * labelling English with one country's flag excludes every other. This is a
+ * well-documented antipattern, and the endonym is the standard fix.
  */
 export function LocaleSwitcher({
   current,
@@ -37,21 +39,21 @@ export function LocaleSwitcher({
 
           return (
             <li key={locale}>
-              <a
-                href={localeSwitchPath(locale, path)}
-                hrefLang={meta.htmlLang}
-                lang={meta.htmlLang}
-                // Marks the active language for assistive tech; the visual
-                // state alone would not announce it.
-                aria-current={isCurrent ? "true" : undefined}
-                className="locale-switcher-link"
-              >
-                <Flag locale={locale} />
-                <span>{meta.label}</span>
-                {/* The flag is decorative, so the full language name is what
-                    actually names the link for a screen reader. */}
-                <span className="sr-only">{meta.nativeName}</span>
-              </a>
+              {isCurrent ? (
+                // The current language is stated, not offered as a link.
+                <span aria-current="true" className="locale-switcher-current">
+                  {meta.nativeName}
+                </span>
+              ) : (
+                <a
+                  href={localeSwitchPath(locale, path)}
+                  hrefLang={meta.htmlLang}
+                  lang={meta.htmlLang}
+                  className="locale-switcher-link"
+                >
+                  {meta.nativeName}
+                </a>
+              )}
             </li>
           );
         })}
