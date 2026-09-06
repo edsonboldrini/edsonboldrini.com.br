@@ -42,3 +42,7 @@ next-env.d.ts
 
 # job artifacts
 /.claude/
+
+# Mapa da infra de producao (portas internas, containers, caminhos).
+# Fica no disco, fora do repo publico. Para publicar: git add -f research/infra.md
+research/infra.md
