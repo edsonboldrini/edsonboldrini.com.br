@@ -1,3 +1,4 @@
+import { Flag } from "./Flag";
 import {
   localeMeta,
   localeSwitchPath,
@@ -20,10 +21,10 @@ export interface LocaleSwitcherProps {
  * English at the bare apex made it unreachable once another language was
  * chosen (see localeSwitchPath).
  *
- * Each language is named in its own language, and there are no flags. A flag
- * is a country, not a language: there is no correct flag for Spanish, and
- * labelling English with one country's flag excludes every other. This is a
- * well-documented antipattern, and the endonym is the standard fix.
+ * Each language shows its flag alongside its own name. The flag is
+ * aria-hidden decoration and never travels alone: a flag is a country, not a
+ * language, so the name is what actually identifies the link — which keeps
+ * the flag from being the only signal for anyone reading or listening.
  */
 export function LocaleSwitcher({
   current,
@@ -42,7 +43,8 @@ export function LocaleSwitcher({
               {isCurrent ? (
                 // The current language is stated, not offered as a link.
                 <span aria-current="true" className="locale-switcher-current">
-                  {meta.nativeName}
+                  <Flag locale={locale} />
+                  <span>{meta.nativeName}</span>
                 </span>
               ) : (
                 <a
@@ -51,7 +53,8 @@ export function LocaleSwitcher({
                   lang={meta.htmlLang}
                   className="locale-switcher-link"
                 >
-                  {meta.nativeName}
+                  <Flag locale={locale} />
+                  <span>{meta.nativeName}</span>
                 </a>
               )}
             </li>

@@ -7,13 +7,21 @@ const caseStudy = readFileSync("app/[locale]/work/cortefilme/page.tsx", "utf8");
 
 describe("language switcher", () => {
   /**
-   * A flag is a country, not a language: there is no correct flag for Spanish,
-   * and one country's flag for English excludes every other. Each language is
-   * named in its own words instead.
+   * Flags are shown by choice. A flag is a country, not a language, so it must
+   * never be the only signal: every flag is paired with the language's own
+   * name, and the flag itself is aria-hidden decoration.
    */
-  it("names languages instead of showing flags", () => {
-    expect(switcher).not.toMatch(/Flag/);
+  it("pairs every flag with the language name", () => {
+    expect(switcher).toMatch(/<Flag locale=/);
     expect(switcher).toMatch(/nativeName/);
+    const flags = switcher.match(/<Flag locale=/g) ?? [];
+    const names = switcher.match(/\{meta\.nativeName\}/g) ?? [];
+    expect(flags.length).toBe(names.length);
+  });
+
+  it("keeps the flag decorative, not the accessible name", () => {
+    const flag = readFileSync("components/Flag.tsx", "utf8");
+    expect(flag).toMatch(/"aria-hidden": true/);
   });
 
   it("marks the current language without linking it", () => {
