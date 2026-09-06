@@ -26,6 +26,19 @@
   outline-offset: 2px;
 }
 
+.work-item {
+  padding-block: var(--space-5, 1.5rem);
+}
+
+/*
+ * Separators go BETWEEN items, never after the last one. A border-block-end on
+ * every item left a rule hanging at the end of a section with nothing beneath
+ * it, which read as a missing entry.
+ */
+.work-item + .work-item {
+  border-block-start: 1px solid var(--line);
+}
+
 .work-item-title {
   display: inline-flex;
   align-items: center;

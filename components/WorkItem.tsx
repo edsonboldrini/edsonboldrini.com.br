@@ -38,10 +38,9 @@ export function WorkItem({
   return (
     <article
       className="work-item"
-      style={{
-        paddingBlock: "var(--space-5, 1.5rem)",
-        borderBlockEnd: "1px solid var(--line)",
-      }}
+      // Spacing and the separator live in styles/components.css: the rule
+      // between items has to be `.work-item + .work-item`, and an inline
+      // style here would win over it.
     >
       <h3
         style={{
