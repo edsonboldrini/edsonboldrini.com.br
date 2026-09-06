@@ -120,3 +120,28 @@
   white-space: nowrap;
   border: 0;
 }
+
+/* --- Section rhythm and the footer rule ----------------------------- */
+
+.section {
+  padding-block: var(--space-9, 6rem);
+}
+
+/*
+ * The footer's rule was stranded: the last section added 6rem below its
+ * content and the footer another 6rem above its heading, leaving a line
+ * floating in 12rem of nothing. On a phone that reads as a divider with a
+ * missing item under it. The last section now stops short so the rule sits
+ * against the content it separates.
+ *
+ * Where :has() is unsupported this simply falls back to the old 6rem — the
+ * layout degrades to what it is today, never to something broken.
+ */
+.section:has(+ .site-footer) {
+  padding-block-end: var(--space-6, 2rem);
+}
+
+.site-footer {
+  padding-block: var(--space-7, 3rem) var(--space-8, 4rem);
+  border-block-start: 1px solid var(--line);
+}

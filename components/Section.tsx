@@ -21,10 +21,9 @@ export function Section({
   return (
     <section
       id={id}
-      className={className}
-      style={{
-        paddingBlock: "var(--space-9, 6rem)",
-      }}
+      // Spacing lives in styles/components.css so the last section before the
+      // footer can tighten its bottom gap — an inline style would win over it.
+      className={["section", className].filter(Boolean).join(" ")}
       aria-labelledby={heading && id ? `${id}-heading` : undefined}
     >
       {heading ? (

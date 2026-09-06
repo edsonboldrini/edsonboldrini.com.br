@@ -40,10 +40,7 @@ export function Footer({
     <footer
       id={id}
       aria-labelledby={headingId}
-      style={{
-        paddingBlock: "var(--space-9) var(--space-8)",
-        borderBlockStart: "1px solid var(--line)",
-      }}
+      className="site-footer"
     >
       {heading ? (
         <h2
