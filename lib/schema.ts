@@ -165,7 +165,9 @@ export function websiteSchema(locale: Locale = defaultLocale): WebSiteLd {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: site.title,
+    // site.name ("Edson Boldrini"), not site.title: the title carries an
+    // English job description that would be wrong on the translated pages.
+    name: site.name,
     url: `${site.origin}/`,
     inLanguage: localeMeta[locale].htmlLang,
   };

@@ -13,7 +13,7 @@ import { LOCALE_COOKIE } from "@/lib/i18n";
 export function LocaleScript({ locale }: { readonly locale: Locale }) {
   const js =
     `try{` +
-    `document.cookie="${LOCALE_COOKIE}=${locale};path=/;max-age=31536000;samesite=lax";` +
+    `document.cookie="${LOCALE_COOKIE}=${locale};path=/;max-age=31536000;samesite=lax"+(location.protocol==="https:"?";secure":"");` +
     `localStorage.setItem("${LOCALE_COOKIE}","${locale}")` +
     `}catch(e){}`;
 

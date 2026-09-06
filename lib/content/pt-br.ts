@@ -34,7 +34,7 @@ export const ptBR: LocaleContent = {
       title: "Club Trip · Além",
       role: "Engenheiro Full Stack — construí a maior parte do produto",
       oneLine:
-        "Um produto de viagens por assinatura da Além, do qual construí quase tudo.",
+        "Um produto de viagens por assinatura da Além, do qual construí a maior parte.",
       meta: "Assinaturas de viagem",
     },
     "le-card": {
@@ -121,7 +121,7 @@ export const ptBR: LocaleContent = {
   },
   meta: {
     home: {
-      title: "Edson Boldrini — Software Engineer",
+      title: "Edson Boldrini — Engenheiro de Software",
       description:
         "Engenheiro de software full-stack em Vitória, Brasil. TypeScript, Node, React e Flutter. Hoje na Superset; criador do CorteFilme.",
     },

@@ -3,7 +3,13 @@ import { notFound } from "next/navigation";
 import { ExternalLink, Prose, Section, LocaleSwitcher } from "@/components";
 import { getContent } from "@/lib/content";
 import { JsonLd, creativeWorkSchema } from "@/lib/schema";
-import { alternatesFor, isLocale, localePath } from "@/lib/i18n";
+import {
+  alternatesFor,
+  isLocale,
+  localeMeta,
+  localePath,
+  locales,
+} from "@/lib/i18n";
 
 const PATH = "work/cortefilme";
 
@@ -28,6 +34,10 @@ export async function generateMetadata({
     alternates: alternatesFor(locale, PATH),
     openGraph: {
       type: "article",
+      locale: localeMeta[locale].ogLocale,
+      alternateLocale: locales
+        .filter((other) => other !== locale)
+        .map((other) => localeMeta[other].ogLocale),
       title: t.meta.caseStudy.title,
       description: t.meta.caseStudy.description,
       url: localePath(locale, PATH),

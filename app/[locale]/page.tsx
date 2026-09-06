@@ -16,7 +16,13 @@ import {
   profilePageSchema,
 } from "@/lib/schema";
 import { getContent } from "@/lib/content";
-import { alternatesFor, isLocale, localePath } from "@/lib/i18n";
+import {
+  alternatesFor,
+  isLocale,
+  localeMeta,
+  localePath,
+  locales,
+} from "@/lib/i18n";
 
 const mainStyle = {
   maxInlineSize: "var(--measure-layout)",
@@ -39,6 +45,10 @@ export async function generateMetadata({
     alternates: alternatesFor(locale),
     openGraph: {
       type: "website",
+      locale: localeMeta[locale].ogLocale,
+      alternateLocale: locales
+        .filter((other) => other !== locale)
+        .map((other) => localeMeta[other].ogLocale),
       title: t.meta.home.title,
       description: t.meta.home.description,
       url: localePath(locale),

@@ -108,7 +108,7 @@ export const es: LocaleContent = {
     about: "Sobre mí",
     selectedWork: "Trabajo seleccionado",
     experience: "Experiencia",
-    openSource: "Open Source",
+    openSource: "Código abierto",
     contact: "Contacto",
     backToHome: "Volver al inicio",
     languageLabel: "Idioma",
