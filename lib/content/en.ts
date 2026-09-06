@@ -64,16 +64,6 @@ export const en: LocaleContent = {
     },
     lecard: { what: "Payments", role: "Full Stack Engineer" },
   },
-  openSource: {
-    flutter_getnet_pos: {
-      description:
-        "A small Flutter plugin I wrote to talk to Getnet POS terminals. A narrow integration, not a maintained library.",
-    },
-    flutter_ycbtsdk: {
-      description:
-        "A small Objective-C wrapper around the YCB smartband SDK — an experiment, not a library with users.",
-    },
-  },
   caseStudy: {
     title: "CorteFilme",
     summary:
@@ -109,7 +99,6 @@ export const en: LocaleContent = {
     about: "About",
     selectedWork: "Selected Work",
     experience: "Experience",
-    openSource: "Open Source",
     contact: "Contact",
     backToHome: "Back to home",
     languageLabel: "Language",

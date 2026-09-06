@@ -12,8 +12,6 @@ import {
   caseSectionKeys,
   companyNames,
   companySlugs,
-  openSourceShared,
-  openSourceSlugs,
   profileLinks,
   workShared,
   workSlugs,
@@ -42,13 +40,6 @@ export interface ExperienceView {
   readonly role: string;
 }
 
-export interface OpenSourceView {
-  readonly name: string;
-  readonly description: string;
-  readonly stack: readonly string[];
-  readonly href: string;
-}
-
 export interface CaseSectionView {
   /** Stable across languages, so anchors do not change per locale. */
   readonly key: string;
@@ -67,7 +58,6 @@ export interface ContentView {
   readonly about: readonly string[];
   readonly selectedWork: readonly WorkView[];
   readonly experience: readonly ExperienceView[];
-  readonly openSource: readonly OpenSourceView[];
   readonly caseStudy: {
     readonly slug: string;
     readonly title: string;
@@ -103,11 +93,6 @@ export function getContent(locale: Locale = defaultLocale): ContentView {
     experience: companySlugs.map((slug) => ({
       company: companyNames[slug],
       ...t.companies[slug],
-    })),
-    openSource: openSourceSlugs.map((slug) => ({
-      name: slug,
-      description: t.openSource[slug].description,
-      ...openSourceShared[slug],
     })),
     caseStudy: {
       slug: "cortefilme",

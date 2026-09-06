@@ -3,12 +3,7 @@
  * Adding a language means adding one file that matches this interface —
  * TypeScript then refuses to build until every string is present.
  */
-import type {
-  CaseSectionKey,
-  CompanySlug,
-  OpenSourceSlug,
-  WorkSlug,
-} from "./shared";
+import type { CaseSectionKey, CompanySlug, WorkSlug } from "./shared";
 
 export interface HeroStrings {
   readonly headline: string;
@@ -31,10 +26,6 @@ export interface CompanyStrings {
   readonly role: string;
 }
 
-export interface OpenSourceStrings {
-  readonly description: string;
-}
-
 export interface CaseStudyStrings {
   readonly title: string;
   readonly summary: string;
@@ -46,7 +37,6 @@ export interface UiStrings {
   readonly about: string;
   readonly selectedWork: string;
   readonly experience: string;
-  readonly openSource: string;
   readonly contact: string;
   readonly backToHome: string;
   readonly languageLabel: string;
@@ -65,7 +55,6 @@ export interface LocaleContent {
   readonly about: readonly string[];
   readonly work: Readonly<Record<WorkSlug, WorkStrings>>;
   readonly companies: Readonly<Record<CompanySlug, CompanyStrings>>;
-  readonly openSource: Readonly<Record<OpenSourceSlug, OpenSourceStrings>>;
   readonly caseStudy: CaseStudyStrings;
   readonly ui: UiStrings;
   readonly meta: {

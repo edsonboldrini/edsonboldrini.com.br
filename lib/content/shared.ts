@@ -60,22 +60,6 @@ export const companyNames: Readonly<Record<CompanySlug, string>> = {
   lecard: "Le Card",
 };
 
-export const openSourceSlugs = ["flutter_getnet_pos", "flutter_ycbtsdk"] as const;
-export type OpenSourceSlug = (typeof openSourceSlugs)[number];
-
-export const openSourceShared: Readonly<
-  Record<OpenSourceSlug, { readonly stack: readonly string[]; readonly href: string }>
-> = {
-  flutter_getnet_pos: {
-    stack: ["Java", "Flutter"],
-    href: `${site.profiles.github}/flutter_getnet_pos`,
-  },
-  flutter_ycbtsdk: {
-    stack: ["Objective-C"],
-    href: `${site.profiles.github}/flutter_ycbtsdk`,
-  },
-};
-
 export const caseSectionKeys = [
   "context",
   "problem",

@@ -64,16 +64,6 @@ export const es: LocaleContent = {
     },
     lecard: { what: "Pagos", role: "Ingeniero full-stack" },
   },
-  openSource: {
-    flutter_getnet_pos: {
-      description:
-        "Un complemento pequeño de Flutter que escribí para comunicarme con terminales POS de Getnet. Una integración acotada, no una biblioteca mantenida.",
-    },
-    flutter_ycbtsdk: {
-      description:
-        "Una capa pequeña en Objective-C alrededor del SDK de pulsera inteligente YCB — un experimento, no una biblioteca con usuarios.",
-    },
-  },
   caseStudy: {
     title: "CorteFilme",
     summary:
@@ -109,7 +99,6 @@ export const es: LocaleContent = {
     about: "Sobre mí",
     selectedWork: "Trabajo seleccionado",
     experience: "Experiencia",
-    openSource: "Código abierto",
     contact: "Contacto",
     backToHome: "Volver al inicio",
     languageLabel: "Idioma",

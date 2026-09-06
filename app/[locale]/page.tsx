@@ -125,18 +125,6 @@ export default async function HomePage({
         />
       </Section>
 
-      <Section id="open-source" heading={t.ui.openSource}>
-        {t.openSource.map((project) => (
-          <WorkItem
-            key={project.href}
-            title={project.name}
-            href={project.href}
-            external
-            outcome={project.description}
-            meta={project.stack.join(" · ")}
-          />
-        ))}
-      </Section>
 
       <Footer
         id="contact"

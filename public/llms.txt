@@ -27,13 +27,6 @@ and fitness coaches use to run their coaching business.
   team), Le Card (payments, Full Stack Engineer). No dates are published on the
   site or this file.
 
-## Open source
-
-Small, honest experiments — integrations, not maintained libraries:
-
-- flutter_getnet_pos — Flutter plugin for Getnet POS terminals (Java, Flutter)
-- flutter_ycbtsdk — Objective-C wrapper around the YCB smartband SDK
-
 ## Languages
 
 The site is published in three languages. The same facts, translated — no

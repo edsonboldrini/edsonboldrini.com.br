@@ -112,6 +112,7 @@ function findWork(work: readonly WorkView[], slug: string): WorkView {
 
 /**
  * knowsAbout = union of every stack published on the site — no new facts.
+ * Since the Open Source section was removed, that is the Selected Work stacks.
  * Stacks live in shared.ts and are identical in every language, so this is
  * locale-independent by construction.
  */
@@ -120,7 +121,6 @@ function knowsAboutFor(locale: Locale): readonly string[] {
   return [
     ...new Set([
       ...t.selectedWork.flatMap((item) => item.stack),
-      ...t.openSource.flatMap((project) => project.stack),
     ]),
   ];
 }

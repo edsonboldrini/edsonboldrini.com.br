@@ -39,8 +39,18 @@ sem mexer em componente nenhum. **Sinalizado para decisão dele no relatório fi
 2. **About** — 2 parágrafos curtos, primeira pessoa. Quem é, como trabalha, onde está.
 3. **Selected Work** — 4 itens em *linha de case* (padrão do `design.md`), não cards.
 4. **Experience** — lista tipográfica de empresas, **sem datas** (ver trava abaixo).
-5. **Open Source** — 2 repos originais, com honestidade de escala. Seção pequena.
-6. **Contact** — email + perfis. Sem formulário (não há backend).
+5. **Contact** — email + perfis. Sem formulário (não há backend).
+
+> **Removido em 2026-09-06, a pedido do Edson: a seção Open Source.**
+> Ela existia para `flutter_getnet_pos` e `flutter_ycbtsdk` — os dois únicos
+> repos originais dele (ADENDO C1). Ambos com 0-1 estrela, descritos com toda a
+> honestidade possível como "integração estreita" e "experimento, não uma
+> biblioteca com usuários" — e é justamente por isso que a seção pesava mais do
+> que rendia: dedicava um bloco inteiro da home a dizer que o material era
+> pequeno. Cortá-la é coerente com o princípio que abre este documento (não
+> criar seção sem conteúdo real que a sustente), não uma perda de informação.
+> **Consequência colateral:** `knowsAbout` no JSON-LD deixa de listar Java,
+> Flutter e Objective-C, que só entravam por esses dois repos.
 
 ## Selected Work — os 4 escolhidos, e por quê
 

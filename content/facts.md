@@ -123,3 +123,18 @@ nos três arquivos: zero ocorrências.**
 
 Travas que continuam valendo, nos três idiomas: sem endereço, telefone, idade,
 formação acadêmica ou datas de emprego; sem métricas de negócio do CorteFilme.
+
+---
+
+## Remoção da seção Open Source — 2026-09-06
+
+A pedido do Edson, a seção Open Source saiu do site. As afirmações que ela
+carregava (descrição de `flutter_getnet_pos` e `flutter_ycbtsdk`) foram
+removidas junto, então não há fato publicado sem fonte por causa disso.
+
+A trilha em `research/person.md` (ADENDO C1: quais repos são originais e quais
+são fork) **permanece** — é ela que impede que alguém, mais adiante, volte a
+listar plugins Flutter de terceiros como se fossem autoria dele.
+
+Efeito no JSON-LD: `knowsAbout` deixa de incluir Java, Flutter e Objective-C,
+que só chegavam ali pela stack desses dois repos. Nenhuma outra afirmação muda.
