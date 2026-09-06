@@ -14,6 +14,7 @@ and fitness coaches use to run their coaching business.
   shops waste less film per roll. Landing in Next.js; product is a Vue/Quasar
   SPA on Hasura and PostgreSQL, with Node.js services, running in Docker on a VPS
   he operates. Case study: https://edsonboldrini.com.br/work/cortefilme
+  (also /pt-br/work/cortefilme and /es/work/cortefilme)
 - **Superset** (current employer) — fitness coaching software: clients, programming
   and payments. He is a Software Engineer there.
 - **Club Trip (Além)** — subscription travel product he built most of (Vue, Node.js,
@@ -32,6 +33,19 @@ Small, honest experiments — integrations, not maintained libraries:
 
 - flutter_getnet_pos — Flutter plugin for Getnet POS terminals (Java, Flutter)
 - flutter_ycbtsdk — Objective-C wrapper around the YCB smartband SDK
+
+## Languages
+
+The site is published in three languages. The same facts, translated — no
+version states anything the others do not:
+
+- English (default): https://edsonboldrini.com.br
+- Português (Brasil): https://edsonboldrini.com.br/pt-br
+- Español: https://edsonboldrini.com.br/es
+
+The apex serves English and answers 200 directly. A reader whose browser asks
+for Portuguese or Spanish is redirected from the apex to their language; an
+explicit choice is remembered and always wins over that detection.
 
 ## Official links
 

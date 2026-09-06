@@ -8,12 +8,13 @@ import { createElement } from "react";
 import type { ReactElement } from "react";
 
 import { site } from "@/lib/site";
+import { getContent, type WorkView } from "@/lib/content";
 import {
-  caseStudy,
-  openSource,
-  selectedWork,
-  type WorkItem,
-} from "@/lib/content";
+  defaultLocale,
+  localeMeta,
+  localePath,
+  type Locale,
+} from "@/lib/i18n";
 
 /**
  * Any of the concrete schema shapes below. A plain Record<string, unknown>
@@ -62,7 +63,7 @@ export interface WebSiteLd {
   readonly "@type": "WebSite";
   readonly name: string;
   readonly url: string;
-  readonly inLanguage: "en";
+  readonly inLanguage: string;
 }
 
 export interface ProfilePageLd {
@@ -80,6 +81,7 @@ export interface CreativeWorkLd {
   readonly name: string;
   readonly url: string;
   readonly description: string;
+  readonly inLanguage: string;
   readonly author: PersonLd;
 }
 
@@ -92,36 +94,44 @@ export interface CreativeWorkLd {
  * Throws at build time if the item or its href is ever removed: a JSON-LD
  * worksFor with a dead URL is worse than no JSON-LD.
  */
-function requireHref(item: WorkItem): string {
+function requireHref(item: WorkView): string {
   const href = item.href;
   if (!href) {
-    throw new Error(`Missing href for "${item.slug}" in lib/content.ts`);
+    throw new Error(`Missing href for "${item.slug}" in lib/content/shared.ts`);
   }
   return href;
 }
 
-function findWork(slug: string): WorkItem {
-  const item = selectedWork.find((candidate) => candidate.slug === slug);
+function findWork(work: readonly WorkView[], slug: string): WorkView {
+  const item = work.find((candidate) => candidate.slug === slug);
   if (!item) {
     throw new Error(`selectedWork has no item with slug "${slug}"`);
   }
   return item;
 }
 
-/** knowsAbout = union of every stack ever published on the site — no new facts. */
-const knowsAbout: readonly string[] = [
-  ...new Set([
-    ...selectedWork.flatMap((item) => item.stack),
-    ...openSource.flatMap((project) => project.stack),
-  ]),
-];
+/**
+ * knowsAbout = union of every stack published on the site — no new facts.
+ * Stacks live in shared.ts and are identical in every language, so this is
+ * locale-independent by construction.
+ */
+function knowsAboutFor(locale: Locale): readonly string[] {
+  const t = getContent(locale);
+  return [
+    ...new Set([
+      ...t.selectedWork.flatMap((item) => item.stack),
+      ...t.openSource.flatMap((project) => project.stack),
+    ]),
+  ];
+}
 
 /* ------------------------------------------------------------------ */
 /* Builders                                                            */
 /* ------------------------------------------------------------------ */
 
-export function personSchema(): PersonLd {
-  const superset = findWork("superset");
+export function personSchema(locale: Locale = defaultLocale): PersonLd {
+  const t = getContent(locale);
+  const superset = findWork(t.selectedWork, "superset");
   return {
     "@context": "https://schema.org",
     "@id": `${site.origin}/#person`,
@@ -136,7 +146,7 @@ export function personSchema(): PersonLd {
       addressRegion: site.location.region,
       addressCountry: site.location.countryCode,
     },
-    knowsAbout,
+    knowsAbout: knowsAboutFor(locale),
     worksFor: {
       "@type": "Organization",
       name: superset.title,
@@ -151,17 +161,17 @@ export function personSchema(): PersonLd {
   };
 }
 
-export function websiteSchema(): WebSiteLd {
+export function websiteSchema(locale: Locale = defaultLocale): WebSiteLd {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: site.title,
     url: `${site.origin}/`,
-    inLanguage: "en",
+    inLanguage: localeMeta[locale].htmlLang,
   };
 }
 
-export function profilePageSchema(): ProfilePageLd {
+export function profilePageSchema(_locale: Locale = defaultLocale): ProfilePageLd {
   return {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
@@ -170,14 +180,16 @@ export function profilePageSchema(): ProfilePageLd {
 }
 
 /** CreativeWork — CorteFilme é produto/SaaS, NÃO SoftwareSourceCode (ia.md). */
-export function creativeWorkSchema(): CreativeWorkLd {
+export function creativeWorkSchema(locale: Locale = defaultLocale): CreativeWorkLd {
+  const { caseStudy } = getContent(locale);
   return {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     name: caseStudy.title,
     url: caseStudy.href,
     description: caseStudy.summary,
-    author: personSchema(),
+    inLanguage: localeMeta[locale].htmlLang,
+    author: personSchema(locale),
   };
 }
 

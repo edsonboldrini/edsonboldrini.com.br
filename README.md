@@ -20,6 +20,39 @@ Every page is prerendered as static HTML. There are **zero client components** �
 the whole site works with JavaScript disabled, which is a hard requirement:
 its content has to be readable by `curl`, crawlers and LLM agents alike.
 
+## Languages
+
+English (default), Português (Brasil) and Español.
+
+| Language | Home | Case study |
+|---|---|---|
+| English | `/` | `/work/cortefilme` |
+| Português | `/pt-br` | `/pt-br/work/cortefilme` |
+| Español | `/es` | `/es/work/cortefilme` |
+
+Internally every page lives under `app/[locale]`, and `proxy.ts` **rewrites**
+unprefixed paths onto `/en`. That is deliberate: the apex keeps answering
+`200` with real HTML instead of redirecting, so `curl`, crawlers and LLM
+agents still get the content in one request. Only a reader arriving at `/`
+whose browser asks for `pt` or `es` is redirected (`307`, never `301` — the
+destination depends on the reader). Deep links are never hijacked.
+
+Choosing a language sets a `NEXT_LOCALE` cookie (and mirrors it to
+`localStorage`), and an explicit choice always beats browser detection. The
+switcher is plain `<a>` links, so it works with JavaScript disabled and the
+`hreflang` graph stays crawlable.
+
+### Adding a language
+
+1. Add it to `locales` and `localeMeta` in `lib/i18n.ts`.
+2. Add a flag to `components/Flag.tsx`.
+3. Copy `lib/content/en.ts` to `lib/content/<locale>.ts` and translate the
+   strings. TypeScript fails the build until every key is present.
+4. Register it in `byLocale` in `lib/content/index.ts`.
+
+URLs, tech stacks and slugs live in `lib/content/shared.ts` and are shared by
+every language — a translation cannot break a link or invent a stack.
+
 ## Layout
 
 ```
@@ -29,9 +62,11 @@ app/                 routes; page.tsx per route, all server components
   work/cortefilme/   case study
   sitemap.ts robots.ts manifest.ts opengraph-image.tsx
 components/          presentational only — no hardcoded copy, typed props
+lib/i18n.ts          locales, detection, hreflang/canonical helpers
+lib/content/         shared.ts (structure) + one file of strings per language
+proxy.ts             language detection and apex rewrite (Next 16 middleware)
 content/facts.md     every published claim mapped to its source (see "Truth")
 lib/site.ts          canonical origin + identity — single source of truth
-lib/content.ts       all site copy, typed
 lib/schema.ts        JSON-LD builders
 research/            how the content and the infra decisions were reached
 deploy/              nginx server block

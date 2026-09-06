@@ -102,3 +102,24 @@ Cada afirmação publicada em `lib/content.ts` e sua fonte em `research/person.m
 2. Conceptho: "what" descrito pelo escopo do trabalho (app de notícias/paywall), já que a pesquisa não descreve o negócio da empresa.
 3. Stack de Club Trip e Le Card = stack declarada da empresa no `resume.json` (não há stack per-feature publicado).
 4. Superset stack = stack declarada da empresa (CTO), não per-papel.
+---
+
+## Tradução (PT-BR e ES) — política e verificação
+
+`lib/content/en.ts` é a **fonte da verdade**. As traduções carregam exatamente as
+mesmas afirmações: nenhuma tradução pode conter fato que o inglês não contenha.
+
+**O que é estrutural e NÃO passa por tradutor** (`lib/content/shared.ts`): URLs,
+stacks de tecnologia, slugs, nomes de empresa e a ordem das seções. Isso torna
+impossível uma tradução quebrar um link ou inventar uma tecnologia.
+
+**Regressão pega na revisão desta rodada:** a primeira versão em PT-BR traduziu
+"window-film installers" como "instaladores de película **automotiva**", em 3
+lugares (about, summary, context). Isso reintroduzia justamente a especificidade
+"carros" que havia sido REMOVIDA na revisão adversarial anterior por não ter
+fonte. Corrigido: as três línguas agora dizem apenas película solar, sem
+restringir a automotivo. **Verificado com `grep -inE 'automotiv|carro|coche'`
+nos três arquivos: zero ocorrências.**
+
+Travas que continuam valendo, nos três idiomas: sem endereço, telefone, idade,
+formação acadêmica ou datas de emprego; sem métricas de negócio do CorteFilme.

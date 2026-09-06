@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { ExternalLink, Prose, Section } from "@/components";
-import { caseStudy } from "@/lib/content";
+import { notFound } from "next/navigation";
+import { ExternalLink, Prose, Section, LocaleSwitcher } from "@/components";
+import { getContent } from "@/lib/content";
 import { JsonLd, creativeWorkSchema } from "@/lib/schema";
+import { alternatesFor, isLocale, localePath } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "CorteFilme",
-  description:
-    "How I built CorteFilme, a SaaS that cuts window-film waste for Brazilian installers.",
-  alternates: { canonical: "/work/cortefilme" },
-};
+const PATH = "work/cortefilme";
 
 const mainStyle = {
   maxInlineSize: "var(--measure-layout)",
@@ -16,18 +13,47 @@ const mainStyle = {
   paddingInline: "var(--space-5)",
 } as const;
 
-export default function CorteFilmeCasePage() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const t = getContent(locale);
+
+  return {
+    title: t.meta.caseStudy.title,
+    description: t.meta.caseStudy.description,
+    alternates: alternatesFor(locale, PATH),
+    openGraph: {
+      type: "article",
+      title: t.meta.caseStudy.title,
+      description: t.meta.caseStudy.description,
+      url: localePath(locale, PATH),
+    },
+  };
+}
+
+export default async function CorteFilmeCasePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const t = getContent(locale);
+  const study = t.caseStudy;
+
   return (
     <main id="main-content" tabIndex={-1} style={mainStyle}>
-      <JsonLd data={creativeWorkSchema()} />
-      <p
-        style={{
-          marginBlockStart: "var(--space-7)",
-          marginBlockEnd: 0,
-        }}
-      >
+      <JsonLd data={creativeWorkSchema(locale)} />
+
+      <LocaleSwitcher current={locale} path={PATH} label={t.ui.languageLabel} />
+
+      <p style={{ marginBlockStart: "var(--space-6)", marginBlockEnd: 0 }}>
         <a
-          href="/"
+          href={localePath(locale)}
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -37,7 +63,7 @@ export default function CorteFilmeCasePage() {
             fontWeight: 600,
           }}
         >
-          ← Home
+          ← {t.ui.backToHome}
         </a>
       </p>
 
@@ -53,7 +79,7 @@ export default function CorteFilmeCasePage() {
             color: "var(--ink)",
           }}
         >
-          {caseStudy.title}
+          {study.title}
         </h1>
         <p
           style={{
@@ -64,7 +90,7 @@ export default function CorteFilmeCasePage() {
             color: "var(--ink)",
           }}
         >
-          {caseStudy.summary}
+          {study.summary}
         </p>
         <p
           style={{
@@ -75,20 +101,16 @@ export default function CorteFilmeCasePage() {
           }}
         >
           <ExternalLink
-            href={caseStudy.href}
+            href={study.href}
             style={{ color: "var(--accent)", fontWeight: 600 }}
           >
-            {caseStudy.href.replace(/^https?:\/\//, "")}
+            {study.href.replace(/^https?:\/\//, "")}
           </ExternalLink>
         </p>
       </header>
 
-      {caseStudy.sections.map((section) => (
-        <Section
-          key={section.heading}
-          id={section.heading.toLowerCase().replace(/\s+/g, "-")}
-          heading={section.heading}
-        >
+      {study.sections.map((section) => (
+        <Section key={section.key} id={section.key} heading={section.heading}>
           <Prose>
             <p>{section.body}</p>
           </Prose>

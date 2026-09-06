@@ -57,3 +57,53 @@
   white-space: nowrap;
   border: 0;
 }
+
+/* --- Language switcher --------------------------------------------- */
+
+.locale-switcher ul {
+  display: flex;
+  gap: var(--space-2, 0.5rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.locale-switcher-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  /* WCAG 2.2 AA 2.5.8 — target at least 24px. */
+  min-block-size: 24px;
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.locale-switcher-link:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.locale-switcher-link[aria-current="true"] {
+  color: var(--ink);
+  border-color: var(--line);
+  background: var(--elevated);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
