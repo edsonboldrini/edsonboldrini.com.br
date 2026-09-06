@@ -8,11 +8,19 @@ export interface HeroLink {
   external?: boolean;
 }
 
+export interface HeroPhoto {
+  src: string;
+  /** Rendered size in CSS pixels; the file itself is 2x for retina. */
+  size: number;
+  alt: string;
+}
+
 export interface HeroProps {
   name: string;
   headline: string;
   meta: string;
   links: HeroLink[];
+  photo?: HeroPhoto;
 }
 
 const linkStyle: CSSProperties = {
@@ -27,13 +35,39 @@ const linkStyle: CSSProperties = {
   textUnderlineOffset: "0.2em",
 };
 
-export function Hero({ name, headline, meta, links }: HeroProps) {
+export function Hero({ name, headline, meta, links, photo }: HeroProps) {
   return (
     <header
       style={{
         paddingBlock: "var(--space-10, 8rem) var(--space-9, 6rem)",
       }}
     >
+      {photo ? (
+        // A plain <img>, not next/image: the file is already served at exactly
+        // 2x its display size, so the optimiser would add a runtime dependency
+        // (sharp) for nothing. width/height are explicit so it reserves its
+        // box and cannot shift the layout — this sits next to the LCP text.
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          width={photo.size}
+          height={photo.size}
+          decoding="async"
+          // No fetchPriority="high": the portrait is not the LCP element, and
+          // promoting it made it compete with the font the LCP text needs.
+          // It is 15KB and arrives well before first paint on its own.
+          style={{
+            inlineSize: photo.size,
+            blockSize: photo.size,
+            borderRadius: "50%",
+            objectFit: "cover",
+            display: "block",
+            marginBlockEnd: "var(--space-6, 2rem)",
+            border: "1px solid var(--line)",
+          }}
+        />
+      ) : null}
+
       <h1
         style={{
           fontFamily: "var(--font-display)",

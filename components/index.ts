@@ -22,5 +22,4 @@ export type { FooterProps, FooterLink } from "./Footer";
 export { ExternalLink } from "./ExternalLink";
 export type { ExternalLinkProps } from "./ExternalLink";
 export { LocaleSwitcher } from "./LocaleSwitcher";
-export { LocaleScript } from "./LocaleScript";
 export { Flag } from "./Flag";

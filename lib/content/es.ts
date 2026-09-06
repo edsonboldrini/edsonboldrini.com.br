@@ -7,6 +7,7 @@ export const es: LocaleContent = {
   hero: {
     headline:
       "Ingeniero de software. Construyo productos de punta a punta — y opero uno.",
+    photoAlt: "Edson Boldrini",
     tagline: "Vitória, Brasil · Actualmente en Superset · Creador de CorteFilme",
   },
   about: [

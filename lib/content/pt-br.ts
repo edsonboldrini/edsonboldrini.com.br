@@ -9,6 +9,7 @@ export const ptBR: LocaleContent = {
   hero: {
     headline:
       "Engenheiro de software. Eu construo produtos de ponta a ponta — e opero um.",
+    photoAlt: "Edson Boldrini",
     tagline: "Vitória, Brasil · Hoje na Superset · Criador do CorteFilme",
   },
   about: [

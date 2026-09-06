@@ -13,6 +13,8 @@ import type {
 export interface HeroStrings {
   readonly headline: string;
   readonly tagline: string;
+  /** Alt text for the portrait — describes the person, not the file. */
+  readonly photoAlt: string;
 }
 
 export interface WorkStrings {

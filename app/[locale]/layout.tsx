@@ -10,7 +10,6 @@ import {
   type Locale,
 } from "@/lib/i18n";
 import { site } from "@/lib/site";
-import { LocaleScript } from "@/components/LocaleScript";
 import "../globals.css";
 
 // Self-hosted by next/font at build time: no third-party request, no layout
@@ -85,7 +84,6 @@ export default async function LocaleLayout({
         className={`${syne.variable} ${sourceSans.variable} ${plexMono.variable}`}
       >
         <SkipLink label={t.ui.skipToContent} />
-        <LocaleScript locale={locale} />
         {children}
       </body>
     </html>

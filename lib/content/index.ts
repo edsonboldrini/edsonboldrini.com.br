@@ -62,6 +62,7 @@ export interface ContentView {
     readonly name: string;
     readonly headline: string;
     readonly tagline: string;
+    readonly photoAlt: string;
   };
   readonly about: readonly string[];
   readonly selectedWork: readonly WorkView[];
@@ -91,6 +92,7 @@ export function getContent(locale: Locale = defaultLocale): ContentView {
       name: site.name,
       headline: t.hero.headline,
       tagline: t.hero.tagline,
+      photoAlt: t.hero.photoAlt,
     },
     about: t.about,
     selectedWork: workSlugs.map((slug) => ({

@@ -1,7 +1,7 @@
 import { Flag } from "./Flag";
 import {
   localeMeta,
-  localePath,
+  localeSwitchPath,
   locales,
   type Locale,
 } from "@/lib/i18n";
@@ -18,6 +18,10 @@ export interface LocaleSwitcherProps {
  * Plain <a> links, one per language, pointing at the same page in that
  * language. No JavaScript is involved in switching: the links work with JS
  * disabled and are crawlable, which is what lets hreflang mean anything.
+ *
+ * Every link is locale-bearing, English included — see localeSwitchPath.
+ * Pointing English at the bare apex made English unreachable once another
+ * language had been chosen.
  */
 export function LocaleSwitcher({
   current,
@@ -34,7 +38,7 @@ export function LocaleSwitcher({
           return (
             <li key={locale}>
               <a
-                href={localePath(locale, path)}
+                href={localeSwitchPath(locale, path)}
                 hrefLang={meta.htmlLang}
                 lang={meta.htmlLang}
                 // Marks the active language for assistive tech; the visual

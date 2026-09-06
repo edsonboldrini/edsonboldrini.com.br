@@ -123,3 +123,17 @@ export function alternatesFor(
 
   return { canonical: localePath(locale, path), languages };
 }
+
+/**
+ * Where a language flag links.
+ *
+ * Always locale-bearing, including English — unlike localePath, which gives
+ * English the bare apex. Linking the English flag at "/" made English
+ * unreachable: the apex honours the saved language, so a reader who had
+ * chosen Portuguese was redirected straight back. "/en" is the explicit
+ * request to switch; proxy.ts saves it and forwards to the canonical URL.
+ */
+export function localeSwitchPath(locale: Locale, path = ""): string {
+  const clean = path.replace(/^\/+/, "");
+  return clean ? `/${locale}/${clean}` : `/${locale}`;
+}

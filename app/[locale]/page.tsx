@@ -79,6 +79,11 @@ export default async function HomePage({
         name={t.hero.name}
         headline={t.hero.headline}
         meta={t.hero.tagline}
+        photo={{
+          src: "/img/edson-boldrini.jpg",
+          size: 128,
+          alt: t.hero.photoAlt,
+        }}
         links={t.contact.profiles
           .filter((p) => p.key === "github" || p.key === "linkedin")
           .map((p) => ({ href: p.href, label: p.label, external: true }))}

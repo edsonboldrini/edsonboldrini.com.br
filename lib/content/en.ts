@@ -8,6 +8,7 @@ import type { LocaleContent } from "./types";
 export const en: LocaleContent = {
   hero: {
     headline: "Software engineer. I build products end to end — and I run one.",
+    photoAlt: "Edson Boldrini",
     tagline: "Vitória, Brazil · Currently at Superset · Creator of CorteFilme",
   },
   about: [
